@@ -19,7 +19,17 @@
     <Connector executor="tomcatThreadPool"
                port="{{ tomcat_port }}"
                protocol="HTTP/1.1"
-               connectionTimeout="20000" />
+               connectionTimeout="20000"
+               {% if lookup('env', 'KILLBILL_TOMCAT_PROXY_NAME') %}
+               proxyName="{{ lookup('env', 'KILLBILL_TOMCAT_PROXY_NAME') }}""
+               {% endif %}
+               {% if lookup('env', 'KILLBILL_TOMCAT_PROXY_PORT') %}
+               proxyPort="{{ lookup('env', 'KILLBILL_TOMCAT_PROXY_PORT') }}""
+               {% endif %}
+               {% if lookup('env', 'KILLBILL_TOMCAT_SCHEME') %}
+               scheme="{{ lookup('env', 'KILLBILL_TOMCAT_SCHEME') }}""
+               {% endif %}
+               />
 
     <Engine name="Catalina" defaultHost="localhost">
       <Host name="localhost"
